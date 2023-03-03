@@ -37,6 +37,15 @@ async function getClient(req, res, next) {
   }
 }
 
+async function getClientBySaleId(req, res, next) {
+    try {
+        res.send(await clientService.getClientBySaleId(req.params.id));
+        logger.info(`GET /client/sale/${req.params.id}`);
+    } catch (err) {
+        next(err);
+    }
+}
+
 async function deleteClient(req, res, next) {
   try {
     await clientService.deleteClient(req.params.id);
@@ -73,4 +82,5 @@ export default {
   getClient,
   deleteClient,
   updateClient,
+  getClientBySaleId,
 };

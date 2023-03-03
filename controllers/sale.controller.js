@@ -5,7 +5,7 @@ async function createSale(req, res, next) {
         let sale = req.body;
         if (!sale.value || !sale.date || !sale.client_id || !sale.product_id) {
             throw new Error("Value, Date, Client ID e Product ID são obrigatórios.");
-        }        
+        }
         sale = await SaleService.createSale(sale);
         res.send(sale);
         logger.info(`POST /sale - ${JSON.stringify(sale)}`);
@@ -16,7 +16,7 @@ async function createSale(req, res, next) {
 
 async function getSales(req, res, next) {
     try {
-        res.send(await SaleService.getSales(req.query.productId));
+        res.send(await SaleService.getSales(req.query.productId, req.query.supplierId));
         logger.info("GET /sale");
     } catch (err) {
         next(err);
@@ -48,9 +48,9 @@ async function deleteSale(req, res, next) {
 async function updateSale(req, res, next) {
     try {
         let sale = req.body;
-        if (!sale.sale_id || !sale.value || !sale.date || !sale.client_id || !sale.product_id) {
+        if (!sale.id || !sale.value || !sale.date || !sale.client_id || !sale.product_id) {
             throw new Error("Sale ID, Value, Date, Client ID e Product ID são obrigatórios.");
-        }   
+        }
         sale = await SaleService.updateSale(sale);
         res.send(sale);
         logger.info(`PUT /sale - ${JSON.stringify(sale)}`);
@@ -64,5 +64,5 @@ export default {
     getSales,
     getSale,
     deleteSale,
-    updateSale, 
+    updateSale,
 }

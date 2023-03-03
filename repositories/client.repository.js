@@ -17,6 +17,19 @@ async function getClients() {
   }
 }
 
+
+async function getClientBySaleId(id) {
+  try {
+    return await Client.findAll({
+      where: {
+        sale_id: id
+      }
+    });
+  } catch (error) {
+    throw error;
+  }
+}
+
 async function getClient(id) {
   try {
     return await Client.findByPk(id);
@@ -51,4 +64,5 @@ export default {
   getClient,
   deleteClient,
   updateClient,
+  getClientBySaleId
 };

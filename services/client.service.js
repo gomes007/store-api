@@ -12,6 +12,10 @@ async function getClient(id){
     return await clientRepository.getClient(id);
 }
 
+async function getClientBySaleId(id){
+    return await clientRepository.getClientBySaleId(id);
+}
+
 async function deleteClient(id){
     return await clientRepository.deleteClient(id);
 }
@@ -20,7 +24,7 @@ async function updateClient(id, client){
     return await clientRepository.updateClient(id, client);
 }
 
-export default { 
+export default {
   createClient,
   getClients,
   getClient,

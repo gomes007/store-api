@@ -3,7 +3,6 @@ import cors from "cors";
 import winston from "winston";
 
 
-
 import clientsRouter from "./routes/client.route.js";
 import productRouter from "./routes/product.route.js";
 import salesRouter from "./routes/sale.route.js";
@@ -30,20 +29,27 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-
-
-
 app.use("/client", clientsRouter);
 app.use("/product", productRouter);
 app.use("/sale", salesRouter);
 app.use("/supplier", supplierRouter);
+
 app.use((err, req, res, next) => {
   logger.error(`${req.method} ${req.baseUrl} - ${err.message}`);
   res.status(400).send({ error: err.message });
 });
 
-
-
+/*
+(async () => {
+    try {
+        await Test2.sync();
+        logger.info("Conectado ao banco de dados");
+    } catch (error) {
+        logger.error("Erro ao conectar ao banco de dados");
+    }
+}
+)();
+*/
 
 
 

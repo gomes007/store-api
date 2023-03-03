@@ -10,11 +10,11 @@ async function insertSale(sale) {
   }
 }
 
-async function getSalesByProductId(productId) {
+async function getSalesByProductId(product_id) {
   try {
     return await Sale.findAll({
       where: {
-        id: productId,
+        product_id: product_id,
       },
       include: [
         {
@@ -28,15 +28,15 @@ async function getSalesByProductId(productId) {
 }
 
 
-async function getSalesBySupplierId(supplierId) {
+async function getSalesBySupplierId(supplier_id) {
   try {
     return await Sale.findAll({
-      where: {
-        supplierId: supplierId,
-      },
       include: [
         {
           model: Product,
+          where: {
+            supplier_id: supplier_id,
+          },
         },
       ],
     });
@@ -44,6 +44,7 @@ async function getSalesBySupplierId(supplierId) {
     throw err;
   }
 }
+
 
 async function getSales() {
   try {
@@ -79,18 +80,18 @@ async function getSale(id) {
   }
 }
 
-async function updateSale(id, sale) {
-  try {
-    const saleFound = await Sale.findByPk(id);
+async function updateSale(sale) {
+    try {
+        const saleFound = await Sale.findByPk(sale.id);
 
-    if (!saleFound) {
-      return null;
+        if (!saleFound) {
+        return null;
+        }
+
+        return await saleFound.update(sale);
+    } catch (err) {
+        throw err;
     }
-
-    return await saleFound.update(sale);
-  } catch (err) {
-    throw err;
-  }
 }
 
 async function deleteSale(id) {

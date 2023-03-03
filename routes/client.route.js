@@ -9,6 +9,7 @@ router.get('/', ClientController.getClients);
 router.get('/:id', ClientController.getClient);
 router.delete('/:id', ClientController.deleteClient);
 router.put('/:id', ClientController.updateClient);
+router.get('/sale/:id', ClientController.getClientBySaleId);
 
 
 export default router;
